@@ -42,3 +42,6 @@ all:	$(TARGET)
 
 clean:
 	rm -f $(OBJS) $(TARGET) $(TEMP_OBJS)
+
+test:
+	./bin/slothjson

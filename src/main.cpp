@@ -84,23 +84,23 @@ namespace slothjson
         std::string json_val;
         if (!slothjson::encode <false, T> (init_val, json_val))
         {
-            printf("encode failed\n");
+            // printf("encode failed\n");
             return false;
         }
 
-        printf("encode %s\n", json_val.c_str());
+        // printf("encode %s\n", json_val.c_str());
 
         T out;
         if (!slothjson::decode(json_val, out))
         {
-            printf("decode failed\n");
+            // printf("decode failed\n");
             return false;
         }
         // printf("encode %s\n", out.str_val.c_str());
 
         bool isEqually = init_val == out;
 
-        printf("isEqual %d\n", isEqually);
+        // printf("isEqual %d\n", isEqually);
 
         return isEqually;
     }
@@ -110,13 +110,13 @@ namespace slothjson
     {
         if (!slothjson::dump <false, T> (init_val, path))
         {
-            printf("%s dump failed\n", path);
+            // printf("%s dump failed\n", path);
             return false;
         }
         T out;
         if (!slothjson::load(path, out))
         {
-            printf("%s load failed\n", path);
+            // printf("%s load failed\n", path);
             return false;
         }
         return init_val == out;
