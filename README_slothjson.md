@@ -1,5 +1,3 @@
-[English](README.md)
-
 # slothjson - 为懒人打造的json对象序列化神器 #
 ![slothjson logo](res/logo.png)
 
