@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-03-02 15:00:50
- * @LastEditTime: 2021-03-02 16:45:44
+ * @LastEditTime: 2021-03-02 16:58:19
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /slothjson/include/jsontypedefs.h
@@ -172,7 +172,7 @@ mt_macro_concat(mt_def_field_decode_, mt_macro_count(__VA_ARGS__))(__VA_ARGS__)
 // Field assign
 
 #define mt_def_field_assign_1( a ) \
-this->##a = obj_val.##a;
+this->a = obj_val.a;
 #define mt_def_field_assign_2( a, ... ) \
 mt_macro_concat(mt_def_field_assign_, mt_macro_count(__VA_ARGS__))(__VA_ARGS__) \
 mt_def_field_assign_1( a )
@@ -207,7 +207,7 @@ mt_macro_concat(mt_def_field_assign_, mt_macro_count(__VA_ARGS__))(__VA_ARGS__)
 // Field equal
 
 #define mt_def_field_equal_1( a ) \
-if (!(this->##a == obj_val.##a)) return false;
+if (!(this->a == obj_val.a)) return false;
 #define mt_def_field_equal_2( a, ... ) \
 mt_macro_concat(mt_def_field_equal_, mt_macro_count(__VA_ARGS__))(__VA_ARGS__) \
 mt_def_field_equal_1( a )
