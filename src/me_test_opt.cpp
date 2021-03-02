@@ -13,7 +13,7 @@
 
 namespace slothjson {
 
-    mt_def_struct(metest_object_t, isStarted, mak, th, len, length, amount, str, vec, dict)
+    mt_def_struct(metest_object_t, isStarted, mak, th, len, length, amount, str_val, vec, dict)
 
 // bool metest_object_t::encode(allocator_t& alloc, rapidjson::Value& json_val) const
 // {
@@ -22,18 +22,13 @@ namespace slothjson {
 //         json_val.SetObject();
 //         if (!__skip_isStarted && !encode_field(isStarted, "isStarted", alloc, json_val)) break;
 //         if (!__skip_mak && !encode_field(mak, "mak", alloc, json_val)) break;
-//         if (!__skip_fin && !encode_field(fin, "fin", alloc, json_val)) break;
 //         if (!__skip_th && !encode_field(th, "th", alloc, json_val)) break;
-//         if (!__skip_sh && !encode_field(sh, "sh", alloc, json_val)) break;
 //         if (!__skip_len && !encode_field(len, "len", alloc, json_val)) break;
-//         if (!__skip_count && !encode_field(count, "count", alloc, json_val)) break;
 //         if (!__skip_length && !encode_field(length, "length", alloc, json_val)) break;
-//         if (!__skip_age && !encode_field(age, "age", alloc, json_val)) break;
-//         if (!__skip_amountd && !encode_field(amountd, "amountd", alloc, json_val)) break;
 //         if (!__skip_amount && !encode_field(amount, "amount", alloc, json_val)) break;
-//         if (!__skip_str && !encode_field(str, "str", alloc, json_val)) break;
 //         if (!__skip_vec && !encode_field(vec, "vec", alloc, json_val)) break;
 //         if (!__skip_dict && !encode_field(dict, "dict", alloc, json_val)) break;
+//         if (!__skip_str_val && !encode_field(str_val, "str_val", alloc, json_val)) break;
 
 //         return true;
 //     } while (0);

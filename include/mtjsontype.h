@@ -66,6 +66,14 @@ typedef std::string MtString;
 // #define MtArrayDefault ({})
 // #define MtStringDefault ""
 
+inline bool mt_needinit(MtString type) {
+    return false;
+}
+
+// template<typename T>
+// inline T mt_initval(MtString type) {
+// }
+
 } // namespace slothjson
 
 // ----------------------------------
@@ -80,9 +88,8 @@ public: \
 private: \
     bool __skip_##field; \
     bool __json_has_##field; \
-    void init_##field() { __skip_##field = false; __json_has_##field = true; }
-
-    // void init_##field() { __skip_##field = false; __json_has_##field = true; field = type##Default; }
+    MtString __typeof_##field; \
+    void init_##field() { __skip_##field = false; __json_has_##field = true; __typeof_##field = #type; }
 
 #define mt_struct_begin(name) \
 struct name \
@@ -207,7 +214,7 @@ mt_macro_concat(mt_def_field_assign_, mt_macro_count(__VA_ARGS__))(__VA_ARGS__)
 // Field equal
 
 #define mt_def_field_equal_1( a ) \
-if (!(this->a == obj_val.a)) return false;
+if (!(this->a == obj_val.a)) {/*printf("%s is not equally\n", #a);*/return false;}
 #define mt_def_field_equal_2( a, ... ) \
 mt_macro_concat(mt_def_field_equal_, mt_macro_count(__VA_ARGS__))(__VA_ARGS__) \
 mt_def_field_equal_1( a )
@@ -243,16 +250,6 @@ mt_macro_concat(mt_def_field_equal_, mt_macro_count(__VA_ARGS__))(__VA_ARGS__)
 
 #define mt_def_struct( name, ...) \
 name::name() {} \
-bool name::encode(allocator_t& alloc, rapidjson::Value& json_val) const \
-{ \
-    do \
-    { \
-        json_val.SetObject(); \
-        mt_def_field_encode( __VA_ARGS__ ) \
-        return true; \
-    } while (0); \
-    return false; \
-} \
 name& name::operator=(const name& obj_val) \
 { \
     mt_def_field_assign( __VA_ARGS__ ) \
@@ -262,6 +259,16 @@ bool name::operator==(const name& obj_val) const \
 { \
     mt_def_field_equal( __VA_ARGS__ ) \
     return true; \
+} \
+bool name::encode(allocator_t& alloc, rapidjson::Value& json_val) const \
+{ \
+    do \
+    { \
+        json_val.SetObject(); \
+        mt_def_field_encode( __VA_ARGS__ ) \
+        return true; \
+    } while (0); \
+    return false; \
 } \
 bool name::decode(const rapidjson::Value& json_val) \
 { \

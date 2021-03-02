@@ -84,14 +84,25 @@ namespace slothjson
         std::string json_val;
         if (!slothjson::encode <false, T> (init_val, json_val))
         {
+            printf("encode failed\n");
             return false;
         }
+
+        printf("encode %s\n", json_val.c_str());
+
         T out;
         if (!slothjson::decode(json_val, out))
         {
+            printf("decode failed\n");
             return false;
         }
-        return init_val == out;
+        // printf("encode %s\n", out.str_val.c_str());
+
+        bool isEqually = init_val == out;
+
+        printf("isEqual %d\n", isEqually);
+
+        return isEqually;
     }
 
     template<typename T>
@@ -99,11 +110,13 @@ namespace slothjson
     {
         if (!slothjson::dump <false, T> (init_val, path))
         {
+            printf("%s dump failed\n", path);
             return false;
         }
         T out;
         if (!slothjson::load(path, out))
         {
+            printf("%s load failed\n", path);
             return false;
         }
         return init_val == out;
@@ -312,8 +325,18 @@ namespace slothjson
         // items.push_back(test_item_t("test_base<std::map<std::string, std::string>>", test_base< std::map<std::string, std::string> >(tmp_map)));
 
         metest_object_t obj;
+        obj.amount = 3.12;
+        obj.mak = 1;
+        obj.th = 123;
+        obj.len = 1234;
+        obj.length = 12345;
+        obj.str_val = "fasda";
+        obj.vec.push_back(123);
+        obj.vec.push_back(234);
+        obj.dict["name"] = "fda";
+        obj.dict["age"] = "23";
         // set_template<metest_object_t>(obj);
-        // items.push_back(test_item_t("test_base<metest_object_t>", test_base<metest_object_t>(obj)));
+        items.push_back(test_item_t("test_base<metest_object_t>", test_base<metest_object_t>(obj)));
 
         // slothjson::metest_object_t sobj;
         // set_template<slothjson::metest_object_t>(sobj);
@@ -323,7 +346,7 @@ namespace slothjson
         tmpobj.val_ = obj;
         // items.push_back(test_item_t("test_base<sample_template_t<metest_object_t>>", test_base< sample_template_t<metest_object_t> >(tmpobj)));
 
-        items.push_back(test_item_t("test_file<sample_template_t<metest_object_t>>", test_file< sample_template_t<metest_object_t> >(tmpobj, "test_opt.json")));
+        // items.push_back(test_item_t("test_file<sample_template_t<metest_object_t>>", test_file< sample_template_t<metest_object_t> >(tmpobj, "test_opt.json")));
 
         bool all_passed = true;
         std::vector<test_item_t>::const_iterator it;
@@ -372,7 +395,7 @@ int main(int argc, char * argv[])
     }
     
     // test sample_test
-    slothjson::test();
+    // slothjson::test();
 
     // test me_test_opt
     slothjson::test_opt();

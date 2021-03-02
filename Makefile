@@ -30,6 +30,7 @@ bin/sample_test.o:	$(DEPS) src/sample_test.cpp
 
 bin/me_test_opt.o:	$(DEPS) src/me_test_opt.cpp
 	$(CXX) -c $(CXXFLAGS)  $(INCS) -o bin/me_test_opt.o src/me_test_opt.cpp
+	$(CXX) -E $(CXXFLAGS)  $(INCS) src/me_test_opt.cpp  -o  bin/me_test_opt.i
 
 SLOTHJSON_CPP = include/slothjson.cpp
 bin/slothjson.o:	$(DEPS) $(SLOTHJSON_CPP)
