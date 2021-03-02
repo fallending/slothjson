@@ -1,5 +1,3 @@
-## imsdk的数据流程
-
 object -> json string -> json object -> pb packet
 
 ```
@@ -80,3 +78,15 @@ mutable int _cached_size_;
 ```
 
 但是pb的使用方法，只能调用起setter....那么就需要 分析proto，产出转化实现？
+
+
+## 设想 1 （pb自动化，它已经自动化了呀！！！！能否，initFromCppDTO？？？？pbPrint）
+
+1. 新建 DTO 继承自 PB 
+2. 利用 proto 和 PB 的 setter
+
+
+## 实施 1
+
+1. 引入对应版本pb
+2. proto直接更新
