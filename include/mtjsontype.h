@@ -106,6 +106,41 @@ public: \
 bool encode(const name& obj_val, allocator_t& alloc, rapidjson::Value& json_val); \
 bool decode(const rapidjson::Value& json_val, name& obj_val);
 
+// Field init
+
+#define mt_field_init_1( a) \
+init_##a();
+#define mt_field_init_2( a, ... ) \
+mt_macro_concat(mt_field_init_, mt_macro_count(__VA_ARGS__))(__VA_ARGS__) \
+mt_field_init_1( a )
+#define mt_field_init_3( a, ... ) \
+mt_macro_concat(mt_field_init_, mt_macro_count(__VA_ARGS__))(__VA_ARGS__) \
+mt_field_init_1( a )
+#define mt_field_init_4( a, ... ) \
+mt_macro_concat(mt_field_init_, mt_macro_count(__VA_ARGS__))(__VA_ARGS__) \
+mt_field_init_1( a )
+#define mt_field_init_5( a, ... ) \
+mt_macro_concat(mt_field_init_, mt_macro_count(__VA_ARGS__))(__VA_ARGS__) \
+mt_field_init_1( a )
+#define mt_field_init_6( a, ... ) \
+mt_macro_concat(mt_field_init_, mt_macro_count(__VA_ARGS__))(__VA_ARGS__) \
+mt_field_init_1( a )
+#define mt_field_init_7( a, ...) \
+mt_macro_concat(mt_field_init_, mt_macro_count(__VA_ARGS__))(__VA_ARGS__) \
+mt_field_init_1( a )
+#define mt_field_init_8( a, ... ) \
+mt_macro_concat(mt_field_init_, mt_macro_count(__VA_ARGS__))(__VA_ARGS__) \
+mt_field_init_1( a )
+#define mt_field_init_9( a, ... ) \
+mt_macro_concat(mt_field_init_, mt_macro_count(__VA_ARGS__))(__VA_ARGS__) \
+mt_field_init_1( a )
+#define mt_field_init_10( a, ... ) \
+mt_macro_concat(mt_field_init_, mt_macro_count(__VA_ARGS__))(__VA_ARGS__) \
+mt_field_init_1( a )
+
+#define mt_field_init( ... ) \
+mt_macro_concat(mt_field_init_, mt_macro_count(__VA_ARGS__))(__VA_ARGS__)
+
 // Field encode
 
 #define mt_def_field_encode_1( a ) \
@@ -249,7 +284,9 @@ mt_macro_concat(mt_def_field_equal_, mt_macro_count(__VA_ARGS__))(__VA_ARGS__)
 // Json struct impl
 
 #define mt_def_struct( name, ...) \
-name::name() {} \
+name::name() { \
+    mt_field_init( __VA_ARGS__ ) \
+} \
 name& name::operator=(const name& obj_val) \
 { \
     mt_def_field_assign( __VA_ARGS__ ) \
