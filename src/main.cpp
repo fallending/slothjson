@@ -18,6 +18,7 @@
 
 #include "sample_test.h"
 #include "perf_test.h"
+#include "me_test_opt.h"
 
 namespace slothjson
 {
@@ -271,6 +272,82 @@ namespace slothjson
             printf("not all cases passed\n");
         }
     }
+
+    void test_opt () {
+        // add your code
+        std::vector<test_item_t> items;
+
+        // items.push_back(test_item_t("test_base<bool>", test_base<bool>(true)));
+        // items.push_back(test_item_t("test_base<int8_t>", test_base<int8_t>(SCHAR_MIN)));
+        // items.push_back(test_item_t("test_base<uint8_t>", test_base<uint8_t>(UCHAR_MAX)));
+        // items.push_back(test_item_t("test_base<int16_t>", test_base<int16_t>(SHRT_MIN)));
+        // items.push_back(test_item_t("test_base<uint16_t>", test_base<uint16_t>(USHRT_MAX)));
+        // items.push_back(test_item_t("test_base<int32_t>", test_base<int32_t>(INT_MIN)));
+        // items.push_back(test_item_t("test_base<uint32_t>", test_base<uint32_t>(UINT_MAX)));
+        // items.push_back(test_item_t("test_base<int64_t>", test_base<int64_t>(INT64_MIN)));
+        // items.push_back(test_item_t("test_base<uint64_t>", test_base<uint64_t>(UINT64_MAX)));
+        // items.push_back(test_item_t("test_base<float>", test_base<float>(FLT_MIN_EXP)));
+        // items.push_back(test_item_t("test_base<double>", test_base<double>(DBL_MAX_EXP)));
+        // items.push_back(test_item_t("test_base<std::string>", test_base<std::string>("test")));
+
+        // std::vector<int> tmp_vec;
+        // items.push_back(test_item_t("test_base<std::vector<int>> empty", test_base< std::vector<int> >(tmp_vec)));
+        // tmp_vec.push_back(1);
+        // tmp_vec.push_back(2);
+        // tmp_vec.push_back(3);
+        // items.push_back(test_item_t("test_base<std::vector<int>>", test_base< std::vector<int> >(tmp_vec)));
+
+        // std::vector<std::string> tmp_str_vec;
+        // items.push_back(test_item_t("test_base<std::vector<std::string>> empty", test_base< std::vector<std::string> >(tmp_str_vec)));
+        // tmp_str_vec.push_back("test1");
+        // tmp_str_vec.push_back("test2");
+        // tmp_str_vec.push_back("test3");
+        // items.push_back(test_item_t("test_base<std::vector<std::string>>", test_base< std::vector<std::string> >(tmp_str_vec)));
+
+        // std::map<std::string, std::string> tmp_map;
+        // items.push_back(test_item_t("test_base<std::map<std::string, std::string>> empty", test_base< std::map<std::string, std::string> >(tmp_map)));
+        // tmp_map["key1"] = "value1";
+        // tmp_map["key2"] = "value2";
+        // tmp_map["key3"] = "value3";
+        // items.push_back(test_item_t("test_base<std::map<std::string, std::string>>", test_base< std::map<std::string, std::string> >(tmp_map)));
+
+        metest_object_t obj;
+        // set_template<metest_object_t>(obj);
+        // items.push_back(test_item_t("test_base<metest_object_t>", test_base<metest_object_t>(obj)));
+
+        // slothjson::metest_object_t sobj;
+        // set_template<slothjson::metest_object_t>(sobj);
+        // items.push_back(test_item_t("test_base<sample_test::metest_object_t>", test_base<slothjson::metest_object_t>(sobj)));
+
+        sample_template_t<metest_object_t> tmpobj;
+        tmpobj.val_ = obj;
+        // items.push_back(test_item_t("test_base<sample_template_t<metest_object_t>>", test_base< sample_template_t<metest_object_t> >(tmpobj)));
+
+        items.push_back(test_item_t("test_file<sample_template_t<metest_object_t>>", test_file< sample_template_t<metest_object_t> >(tmpobj, "test_opt.json")));
+
+        bool all_passed = true;
+        std::vector<test_item_t>::const_iterator it;
+        for (it = items.begin(); it != items.end(); ++it)
+        {
+            if (it->ret)
+            {
+                printf("%s passed\n", it->name.data());
+            }
+            else
+            {
+                all_passed = false;
+                printf("%s failed\n", it->name.data());
+            }
+        }
+        if (all_passed)
+        {
+            printf("all cases passed\n");
+        }
+        else
+        {
+            printf("not all cases passed\n");
+        }
+    }
 }
 
 
@@ -294,6 +371,11 @@ int main(int argc, char * argv[])
         return 0;
     }
     
+    // test sample_test
     slothjson::test();
+
+    // test me_test_opt
+    slothjson::test_opt();
+
     return 0;
 }

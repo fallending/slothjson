@@ -7,7 +7,8 @@ TARGET = bin/slothjson
 OBJS = bin/main.o \
 	bin/perf_test.o \
 	bin/sample_test.o \
-    bin/slothjson.o
+    bin/slothjson.o \
+	bin/me_test_opt.o
 
 INCS = -I include/rapidjson \
 	-I include
@@ -26,6 +27,9 @@ bin/perf_test.o:	$(DEPS) src/perf_test.cpp
 
 bin/sample_test.o:	$(DEPS) src/sample_test.cpp
 	$(CXX) -c $(CXXFLAGS)  $(INCS) -o bin/sample_test.o src/sample_test.cpp
+
+bin/me_test_opt.o:	$(DEPS) src/me_test_opt.cpp
+	$(CXX) -c $(CXXFLAGS)  $(INCS) -o bin/me_test_opt.o src/me_test_opt.cpp
 
 SLOTHJSON_CPP = include/slothjson.cpp
 bin/slothjson.o:	$(DEPS) $(SLOTHJSON_CPP)

@@ -1,11 +1,15 @@
 /*
  * @Author: your name
  * @Date: 2021-02-20 19:01:39
- * @LastEditTime: 2021-03-02 15:07:23
+ * @LastEditTime: 2021-03-02 15:23:05
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /slothjson/include/jsonserializer.cpp
  */
+
+// Mutations type json
+
+#include "mtjson.h"
 
 // 抽象json序列化的基类
 // 实现一个基于rapidjson的序列化器

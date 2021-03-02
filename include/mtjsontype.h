@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-03-02 15:00:50
- * @LastEditTime: 2021-03-02 15:02:58
+ * @LastEditTime: 2021-03-02 16:45:44
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /slothjson/include/jsontypedefs.h
@@ -56,17 +56,17 @@ typedef std::map<std::string, std::string> MtMap;
 typedef std::vector<int32_t> MtArray;
 typedef std::string MtString;
 
-#define MtBoolDefault true
-#define MtInt8Default 0
-#define MtInt16Default 0 
-#define MtInt32Default 0 
-#define MtInt64Default 0 
-#define MtDoubleDefault 0.0f
-#define MtMapDefault {}
-#define MtArrayDefault {}
-#define MtStringDefault ""
+// #define MtBoolDefault true
+// #define MtInt8Default 0
+// #define MtInt16Default 0 
+// #define MtInt32Default 0 
+// #define MtInt64Default 0 
+// #define MtDoubleDefault 0.0f
+// #define MtMapDefault ({})
+// #define MtArrayDefault ({})
+// #define MtStringDefault ""
 
-}
+} // namespace slothjson
 
 // ----------------------------------
 // Json struct
@@ -80,7 +80,9 @@ public: \
 private: \
     bool __skip_##field; \
     bool __json_has_##field; \
-    void init_##field() { __skip_##field = false; __json_has_##field = true; field = type##Default; }
+    void init_##field() { __skip_##field = false; __json_has_##field = true; }
+
+    // void init_##field() { __skip_##field = false; __json_has_##field = true; field = type##Default; }
 
 #define mt_struct_begin(name) \
 struct name \
@@ -96,6 +98,8 @@ public: \
 }; \
 bool encode(const name& obj_val, allocator_t& alloc, rapidjson::Value& json_val); \
 bool decode(const rapidjson::Value& json_val, name& obj_val);
+
+// Field encode
 
 #define mt_def_field_encode_1( a ) \
 if (!__skip_##a && !encode_field(a, #a, alloc, json_val)) break;
@@ -130,6 +134,7 @@ mt_def_field_encode_1( a )
 #define mt_def_field_encode( ... ) \
 mt_macro_concat(mt_def_field_encode_, mt_macro_count(__VA_ARGS__))(__VA_ARGS__)
 
+// Field decode
 
 #define mt_def_field_decode_1( a ) \
 if (!decode_field(json_val, #a, a, __json_has_##a)) break;
@@ -164,7 +169,80 @@ mt_def_field_decode_1( a )
 #define mt_def_field_decode( ... ) \
 mt_macro_concat(mt_def_field_decode_, mt_macro_count(__VA_ARGS__))(__VA_ARGS__)
 
+// Field assign
+
+#define mt_def_field_assign_1( a ) \
+this->##a = obj_val.##a;
+#define mt_def_field_assign_2( a, ... ) \
+mt_macro_concat(mt_def_field_assign_, mt_macro_count(__VA_ARGS__))(__VA_ARGS__) \
+mt_def_field_assign_1( a )
+#define mt_def_field_assign_3( a, ... ) \
+mt_macro_concat(mt_def_field_assign_, mt_macro_count(__VA_ARGS__))(__VA_ARGS__) \
+mt_def_field_assign_1( a )
+#define mt_def_field_assign_4( a, ... ) \
+mt_macro_concat(mt_def_field_assign_, mt_macro_count(__VA_ARGS__))(__VA_ARGS__) \
+mt_def_field_assign_1( a )
+#define mt_def_field_assign_5( a, ... ) \
+mt_macro_concat(mt_def_field_assign_, mt_macro_count(__VA_ARGS__))(__VA_ARGS__) \
+mt_def_field_assign_1( a )
+#define mt_def_field_assign_6( a, ... ) \
+mt_macro_concat(mt_def_field_assign_, mt_macro_count(__VA_ARGS__))(__VA_ARGS__) \
+mt_def_field_assign_1( a )
+#define mt_def_field_assign_7( a, ... ) \
+mt_macro_concat(mt_def_field_assign_, mt_macro_count(__VA_ARGS__))(__VA_ARGS__) \
+mt_def_field_assign_1( a )
+#define mt_def_field_assign_8( a, ... ) \
+mt_macro_concat(mt_def_field_assign_, mt_macro_count(__VA_ARGS__))(__VA_ARGS__) \
+mt_def_field_assign_1( a )
+#define mt_def_field_assign_9( a, ... ) \
+mt_macro_concat(mt_def_field_assign_, mt_macro_count(__VA_ARGS__))(__VA_ARGS__) \
+mt_def_field_assign_1( a )
+#define mt_def_field_assign_10( a, ... ) \
+mt_macro_concat(mt_def_field_assign_, mt_macro_count(__VA_ARGS__))(__VA_ARGS__) \
+mt_def_field_assign_1( a )
+
+#define mt_def_field_assign( ... ) \
+mt_macro_concat(mt_def_field_assign_, mt_macro_count(__VA_ARGS__))(__VA_ARGS__)
+
+// Field equal
+
+#define mt_def_field_equal_1( a ) \
+if (!(this->##a == obj_val.##a)) return false;
+#define mt_def_field_equal_2( a, ... ) \
+mt_macro_concat(mt_def_field_equal_, mt_macro_count(__VA_ARGS__))(__VA_ARGS__) \
+mt_def_field_equal_1( a )
+#define mt_def_field_equal_3( a, ... ) \
+mt_macro_concat(mt_def_field_equal_, mt_macro_count(__VA_ARGS__))(__VA_ARGS__) \
+mt_def_field_equal_1( a )
+#define mt_def_field_equal_4( a, ... ) \
+mt_macro_concat(mt_def_field_equal_, mt_macro_count(__VA_ARGS__))(__VA_ARGS__) \
+mt_def_field_equal_1( a )
+#define mt_def_field_equal_5( a, ... ) \
+mt_macro_concat(mt_def_field_equal_, mt_macro_count(__VA_ARGS__))(__VA_ARGS__) \
+mt_def_field_equal_1( a )
+#define mt_def_field_equal_6( a, ... ) \
+mt_macro_concat(mt_def_field_equal_, mt_macro_count(__VA_ARGS__))(__VA_ARGS__) \
+mt_def_field_equal_1( a )
+#define mt_def_field_equal_7( a, ... ) \
+mt_macro_concat(mt_def_field_equal_, mt_macro_count(__VA_ARGS__))(__VA_ARGS__) \
+mt_def_field_equal_1( a )
+#define mt_def_field_equal_8( a, ... ) \
+mt_macro_concat(mt_def_field_equal_, mt_macro_count(__VA_ARGS__))(__VA_ARGS__) \
+mt_def_field_equal_1( a )
+#define mt_def_field_equal_9( a, ... ) \
+mt_macro_concat(mt_def_field_equal_, mt_macro_count(__VA_ARGS__))(__VA_ARGS__) \
+mt_def_field_equal_1( a )
+#define mt_def_field_equal_10( a, ... ) \
+mt_macro_concat(mt_def_field_equal_, mt_macro_count(__VA_ARGS__))(__VA_ARGS__) \
+mt_def_field_equal_1( a )
+
+#define mt_def_field_equal( ... ) \
+mt_macro_concat(mt_def_field_equal_, mt_macro_count(__VA_ARGS__))(__VA_ARGS__)
+
+// Json struct impl
+
 #define mt_def_struct( name, ...) \
+name::name() {} \
 bool name::encode(allocator_t& alloc, rapidjson::Value& json_val) const \
 { \
     do \
@@ -174,6 +252,16 @@ bool name::encode(allocator_t& alloc, rapidjson::Value& json_val) const \
         return true; \
     } while (0); \
     return false; \
+} \
+name& name::operator=(const name& obj_val) \
+{ \
+    mt_def_field_assign( __VA_ARGS__ ) \
+    return *this; \
+} \
+bool name::operator==(const name& obj_val) const \
+{ \
+    mt_def_field_equal( __VA_ARGS__ ) \
+    return true; \
 } \
 bool name::decode(const rapidjson::Value& json_val) \
 { \
