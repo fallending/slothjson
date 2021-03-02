@@ -324,7 +324,7 @@ namespace slothjson
         // tmp_map["key3"] = "value3";
         // items.push_back(test_item_t("test_base<std::map<std::string, std::string>>", test_base< std::map<std::string, std::string> >(tmp_map)));
 
-        metest_object_t obj;
+        mtjson::metest_object_t obj;
         obj.amount = 3.12;
         obj.mak = 1;
         obj.th = 123;
@@ -336,13 +336,13 @@ namespace slothjson
         obj.dict["name"] = "fda";
         obj.dict["age"] = "23";
         // set_template<metest_object_t>(obj);
-        items.push_back(test_item_t("test_base<metest_object_t>", test_base<metest_object_t>(obj)));
+        items.push_back(test_item_t("test_base<metest_object_t>", test_base<mtjson::metest_object_t>(obj)));
 
         // slothjson::metest_object_t sobj;
         // set_template<slothjson::metest_object_t>(sobj);
         // items.push_back(test_item_t("test_base<sample_test::metest_object_t>", test_base<slothjson::metest_object_t>(sobj)));
 
-        sample_template_t<metest_object_t> tmpobj;
+        sample_template_t<mtjson::metest_object_t> tmpobj;
         tmpobj.val_ = obj;
         // items.push_back(test_item_t("test_base<sample_template_t<metest_object_t>>", test_base< sample_template_t<metest_object_t> >(tmpobj)));
 

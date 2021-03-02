@@ -44,7 +44,7 @@
 // Mutation type
 // ----------------------------------
 
-namespace slothjson {
+namespace mtjson {
 
 typedef bool MtBool;
 typedef int8_t MtInt8;
@@ -74,7 +74,7 @@ inline bool mt_needinit(MtString type) {
 // inline T mt_initval(MtString type) {
 // }
 
-} // namespace slothjson
+} // namespace mtjson
 
 // ----------------------------------
 // Json struct
@@ -100,10 +100,10 @@ public: \
     name(); \
     name& operator=(const name& obj_val); \
     bool operator==(const name& obj_val) const; \
-    bool encode(allocator_t& alloc, rapidjson::Value& json_val) const; \
+    bool encode(slothjson::allocator_t& alloc, rapidjson::Value& json_val) const; \
     bool decode(const rapidjson::Value& json_val); \
 }; \
-bool encode(const name& obj_val, allocator_t& alloc, rapidjson::Value& json_val); \
+bool encode(const name& obj_val, slothjson::allocator_t& alloc, rapidjson::Value& json_val); \
 bool decode(const rapidjson::Value& json_val, name& obj_val);
 
 // Field init
@@ -144,7 +144,7 @@ mt_macro_concat(mt_field_init_, mt_macro_count(__VA_ARGS__))(__VA_ARGS__)
 // Field encode
 
 #define mt_def_field_encode_1( a ) \
-if (!__skip_##a && !encode_field(a, #a, alloc, json_val)) break;
+if (!__skip_##a && !slothjson::encode_field(a, #a, alloc, json_val)) break;
 #define mt_def_field_encode_2( a, ... ) \
 mt_macro_concat(mt_def_field_encode_, mt_macro_count(__VA_ARGS__))(__VA_ARGS__) \
 mt_def_field_encode_1( a )
@@ -179,7 +179,7 @@ mt_macro_concat(mt_def_field_encode_, mt_macro_count(__VA_ARGS__))(__VA_ARGS__)
 // Field decode
 
 #define mt_def_field_decode_1( a ) \
-if (!decode_field(json_val, #a, a, __json_has_##a)) break;
+if (!slothjson::decode_field(json_val, #a, a, __json_has_##a)) break;
 #define mt_def_field_decode_2( a, ... ) \
 mt_macro_concat(mt_def_field_decode_, mt_macro_count(__VA_ARGS__))(__VA_ARGS__) \
 mt_def_field_decode_1( a )
@@ -297,7 +297,7 @@ bool name::operator==(const name& obj_val) const \
     mt_def_field_equal( __VA_ARGS__ ) \
     return true; \
 } \
-bool name::encode(allocator_t& alloc, rapidjson::Value& json_val) const \
+bool name::encode(slothjson::allocator_t& alloc, rapidjson::Value& json_val) const \
 { \
     do \
     { \
@@ -316,7 +316,7 @@ bool name::decode(const rapidjson::Value& json_val) \
     } while (0); \
     return false; \
 } \
-bool encode(const name& obj_val, allocator_t& alloc, rapidjson::Value& json_val) \
+bool encode(const name& obj_val, slothjson::allocator_t& alloc, rapidjson::Value& json_val) \
 { \
     return obj_val.encode(alloc, json_val); \
 } \
