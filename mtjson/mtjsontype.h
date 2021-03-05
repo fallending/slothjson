@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-03-02 15:00:50
- * @LastEditTime: 2021-03-02 16:58:19
+ * @LastEditTime: 2021-03-02 19:35:18
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /slothjson/include/jsontypedefs.h
@@ -84,12 +84,12 @@ inline bool mt_needinit(MtString type) {
 public: \
     type field; \
     void skip_##field() { __skip_##field = true; } \
-    bool json_has_##field() const { return __json_has_##field; } \
+    bool has_##field() const { return __has_##field; } \
 private: \
     bool __skip_##field; \
-    bool __json_has_##field; \
+    bool __has_##field; \
     MtString __typeof_##field; \
-    void init_##field() { __skip_##field = false; __json_has_##field = true; __typeof_##field = #type; }
+    void init_##field() { __skip_##field = false; __has_##field = true; __typeof_##field = #type; }
 
 #define mt_struct_begin(name) \
 struct name \
